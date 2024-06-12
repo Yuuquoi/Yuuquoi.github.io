@@ -3,7 +3,7 @@ import { onMounted } from 'vue';
 import * as THREE from 'three';
 
 // 資料傳遞設定
-const emit = defineEmits(['changeThemeFromHiBall']);
+const emit = defineEmits(['changeThemeFromHiBall', 'changeThemeBoolean']);
 const props = defineProps({
     changeTheme: Boolean,
 });
@@ -214,18 +214,20 @@ function animate() {
 
 // ChangeTheme 的動畫
 function changeThemeAnimate(){
-    props.changeTheme = false;
+    console.log('重複做');
     if( localStorage.getItem('theme') == 'light' ){
-        sliderPos-=2;
+        sliderPos -= 8;
         if(sliderPos <= 0){
+            emit('changeThemeBoolean');
             sliderPos = 0;
             window.clearInterval(timerForChangeTheme);
             timerForChangeTheme = null;
         }
     }
     if( localStorage.getItem('theme') == 'dark' ){
-        sliderPos+=2;
+        sliderPos += 8;
         if(sliderPos >= window.innerWidth / 10 * 7){
+            emit('changeThemeBoolean');
             sliderPos = window.innerWidth / 10 * 7;
             window.clearInterval(timerForChangeTheme);
             timerForChangeTheme = null;

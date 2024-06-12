@@ -31,9 +31,19 @@ export default {
 
         // 按鈕觸發模式轉換事件
         themeControlEvent(){
-            this.initTheme();
+            if( localStorage.getItem('theme')=='light' ){
+                this.initTheme();
+            }
             this.changeTheme = true;
-        }
+        },
+
+        // 關閉 changeTheme
+        turnOffChangeTheme(){
+            if( localStorage.getItem('theme')=='dark' ){
+                this.initTheme();
+            }
+            this.changeTheme = false;
+        },
     },
 
     //
@@ -55,7 +65,7 @@ export default {
     <div class="homeView">
 
         <div class="leftShow">
-            <hiBall @changeThemeFromHiBall="initTheme" :changeTheme="this.changeTheme" />
+            <hiBall @changeThemeFromHiBall="initTheme" @changeThemeBoolean="turnOffChangeTheme" :changeTheme="this.changeTheme" />
         </div>
 
         <div class="rightShow">
