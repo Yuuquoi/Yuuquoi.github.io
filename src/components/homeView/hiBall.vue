@@ -16,7 +16,7 @@ let container, camera, renderer;
 let sceneL, sceneR;
 
 // 宣告物體
-let meshL, meshR, circleL, circleR;
+let meshR, meshL, circleR, circleL;
 
 // 宣告 slide 變數
 let sliderPos = (window.innerWidth / 10 * 7) / 2;
@@ -70,7 +70,12 @@ function initMeshes() {
     const geometry = new THREE.IcosahedronGeometry(1, 3);
     const geometryCircle = new THREE.TorusGeometry(1.3, 0.05, 3, 100);
 
-    meshL = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({
+    meshL = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ wireframe: true }));
+    circleL = new THREE.Mesh(geometryCircle, new THREE.MeshStandardMaterial({ wireframe: true }));
+    circleL.rotation.x = 1.8;
+    circleL.rotation.y = -0.2;
+
+    meshR = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({
         flatShading: true,
         color: 0xffffff,
         emissive: 0xDEDEDE,
@@ -79,7 +84,7 @@ function initMeshes() {
         polygonOffsetUnits: 1,
         polygonOffsetFactor: 1,
     }));
-    circleL = new THREE.Mesh(geometryCircle, new THREE.MeshStandardMaterial({
+    circleR = new THREE.Mesh(geometryCircle, new THREE.MeshStandardMaterial({
         flatShading: true,
         color: 0xf6ea87,
         emissive: 0xff9800,
@@ -89,20 +94,14 @@ function initMeshes() {
         polygonOffsetFactor: 1,
     }));
 
-    circleL.rotation.x = 1.8;
-    circleL.rotation.y = -0.2;
-    // sceneL.add( meshR );
-    // sceneL.add( circleR );
-
-    meshR = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ wireframe: true }));
-    circleR = new THREE.Mesh(geometryCircle, new THREE.MeshStandardMaterial({ wireframe: true }));
     circleR.rotation.x = 1.8;
     circleR.rotation.y = -0.2;
-    sceneR.add(meshL);
-    sceneR.add(circleL);
 
-    sceneL.add(meshR);
-    sceneL.add(circleR);
+    sceneL.add(meshL);
+    sceneL.add(circleL);
+
+    sceneR.add(meshR);
+    sceneR.add(circleR);
 
 }
 
@@ -152,33 +151,33 @@ function onWindowResize() {
 function animate() {
 
     // 球體的運作方式
-    meshL.rotation.x += 0.001;
-    meshL.rotation.y += 0.003;
-    meshR.rotation.x = meshL.rotation.x;
-    meshR.rotation.y = meshL.rotation.y;
+    meshR.rotation.x += 0.001;
+    meshR.rotation.y += 0.003;
+    meshL.rotation.x = meshR.rotation.x;
+    meshL.rotation.y = meshR.rotation.y;
 
     // 圓環的運作方式
     const border = 0.05
-    if (circleL.position.y > border || circleL.position.y < -border) {
+    if (circleR.position.y > border || circleR.position.y < -border) {
         goUp = !goUp;
     }
     if (goUp) {
-        circleL.position.y += 0.0005;
-        circleR.position.y = circleL.position.y;
+        circleR.position.y += 0.0005;
+        circleL.position.y = circleR.position.y;
     } else {
-        circleL.position.y -= 0.0005;
-        circleR.position.y = circleL.position.y;
+        circleR.position.y -= 0.0005;
+        circleL.position.y = circleR.position.y;
     }
 
-    if (circleL.position.x > border || circleL.position.x < -border) {
+    if (circleR.position.x > border || circleR.position.x < -border) {
         goRight = !goRight;
     }
     if (goRight) {
-        circleL.position.x += 0.0005;
-        circleR.position.x = circleL.position.x;
+        circleR.position.x += 0.0005;
+        circleL.position.x = circleR.position.x;
     } else {
-        circleL.position.x -= 0.0005;
-        circleR.position.x = circleL.position.x;
+        circleR.position.x -= 0.0005;
+        circleL.position.x = circleR.position.x;
     }
 
     renderer.setScissor(0, 0, sliderPos, window.innerHeight);
