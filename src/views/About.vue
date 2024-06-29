@@ -1,18 +1,25 @@
 <script>
+import tagCloud from '../components/about/tagCloud.vue'
+
 export default{
-    methods: {
-        
+
+    components: {
+        tagCloud,
     },
-    data(){
-        return{
-            
-        }
-    }
+
 }
 </script>
 
 <template>
+    <div class="about">
+        <tagCloud />
+    </div>
 </template>
 
 <style lang="scss" scoped>
+.about{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--homeViewBgc);
+}
 </style>

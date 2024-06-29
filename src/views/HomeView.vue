@@ -3,6 +3,7 @@ import hiBall from '../components/homeView/hiBall.vue'
 import navigationBar from '../components/homeView/navigationBar.vue';
 
 export default {
+    
     // Lifecycle
     mounted() {
         this.initTheme();
