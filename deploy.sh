@@ -13,7 +13,7 @@ cd dist
 
 git init //因為dist資料夾預設是被ignore的，因此在進入dist資料夾後初始化git
 git add -A
-git commit -m 'deploy'
+git commit -m deploy
 
 # 部署到 https://github.com/Yuuquoi/personalWeb2.0.git 分支為 gh-pages
 git push -f https://github.com/Yuuquoi/personalWeb2.0.git master:gh-pages
